@@ -234,9 +234,7 @@ final class TouchBarLyricsController: NSObject, NSTouchBarDelegate {
                     // 1st generation:左端 Esc 那一格放自己的 esc 键,系统的 ✕ 跟着没了、收起靠自己那一颗,所以收不起来
                     // (入口缺了)时不放。
                     let escapeKey = hasEscapeKey && TouchBarPrivateAPI.supportsHidingControlStrip
-                    let collapse = TouchBarSlot.showsCollapseKey(
-                        fullWidth: fullWidth, appIsActive: active, replacesEscapeKey: escapeKey,
-                        canMinimize: TouchBarPrivateAPI.supportsHidingControlStrip)
+                    let collapse = false
                     return Layout(slots: TouchBarSlot.order(artworkSide: items.1, controlsSide: items.3,
                                                             showsArtwork: items.0, showsControls: items.2,
                                                             showsCollapseKey: collapse, showsMoreKey: showsMore),
