@@ -1,0 +1,36 @@
+name: Build Lyrimuse (no Touch Bar x)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: write
+
+env:
+  GO_VERSION: "1.24.4"
+
+jobs:
+  build:
+    runs-on: macos-26
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Go
+        uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version: ${{ env.GO_VERSION }}
+          cache-dependency-path: lyrimuse-engine/go.sum
+
+      - name: Build universal .app (ad-hoc)
+        run: |
+          cd lyrimuse
+          ./build.sh --universal --dest "${{ runner.temp }}/Lyrimuse.app"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Lyrimuse-no-collapse
+          path: ${{ runner.temp }}/Lyrimuse.app
+          retention-days: 14
