@@ -1,0 +1,8 @@
+name: Diag2
+on:
+  workflow_dispatch:
+jobs:
+  diag:
+    runs-on: macos-latest
+    steps:
+      - run: echo "macos-latest runner OK $(date) ; os=$(sw_vers -productVersion 2>/dev/null)"
